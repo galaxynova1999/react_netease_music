@@ -1,0 +1,95 @@
+.musicDetail {
+    overflow-x: hidden;
+    z-index: 1;
+    position: absolute;
+    width: 100%;
+    overflow-y: scroll;
+    height: calc(100% - 64px);
+    background-color: rgb(246,246,248);
+
+}
+
+
+.musicDetail::-webkit-scrollbar{ width:8px;}
+.musicDetail::-webkit-scrollbar-track{background-color:transparent;}
+.musicDetail::-webkit-scrollbar-thumb{background-color:rgb(225,225,226);}
+.musicDetail::-webkit-scrollbar-thumb:active {background-color:rgb(225,225,226);}
+
+
+
+.top {
+    width:100%;
+    display:flex;
+    background-image: linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%);
+    height: 100%;
+    overflow: hidden;
+}
+.writeComment{
+    width: 850px;
+    margin-top: 20px;
+    border-radius: 35px;
+    margin-left: 40px;
+}
+.comment{
+    margin-top: 20px;
+    width: 850px;
+    border-radius: 35px;
+    margin-left: 20px;
+    float: left;
+}
+.recommend{
+    margin-top: 20px;
+    width: calc(100% - 900px);
+    border-radius: 35px;
+    min-height: 600px;
+    float: right;
+}
+.topLeft{
+  margin-left: 23%;
+}
+.pic{
+    animation: rotation 20s linear infinite;
+}
+.pic_ani{
+    -webkit-animation-play-state: running;
+}
+.pic_no_ani{
+    -webkit-animation-play-state: paused;
+}
+.topRight{
+    font-size: 35px;
+    margin-top: 20px;
+    margin-left: 10%;
+}
+.collect::-webkit-scrollbar{width:5px;}
+.collect::-webkit-scrollbar-track{background-color:transparent;}
+.collect::-webkit-scrollbar-thumb{background-color:rgb(225,225,226);}
+.collect::-webkit-scrollbar-thumb:active {background-color:rgb(225,225,226);}
+
+
+.collect_item:hover{
+  background-color: rgb(238,239,240);
+}
+.collect_item{
+    cursor: pointer;
+}
+.simi:hover{
+    cursor: pointer;
+    background-color: rgb(242,242,243);
+}
+
+@keyframes rotation{
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+.describe_overflow {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    width: 20vw;
+    overflow: hidden;
+    -webkit-line-clamp:2
+}

@@ -1,0 +1,22 @@
+.popover::-webkit-scrollbar{width:8px;}
+.popover::-webkit-scrollbar-track{background-color:transparent;}
+.popover::-webkit-scrollbar-thumb{background-color:rgb(225,225,226);}
+.popover::-webkit-scrollbar-thumb:active {background-color:rgb(225,225,226);}
+
+.item:hover{
+    background-color: rgb(237,237,237);
+    cursor: pointer
+}
+
+.suggest{
+    height:35px;
+    line-height:35px;
+    padding-left:20px;
+    text-overflow: clip;
+    font-size: 0.85em;
+
+}
+.suggest:hover{
+    background-color: rgb(237,237,237);
+    cursor:pointer;
+}

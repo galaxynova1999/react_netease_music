@@ -1,0 +1,19 @@
+.top{
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+.name{
+    display: flex;
+    align-items: center;
+}
+.count{
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+.count div{
+    display: flex;
+    flex-direction: column-reverse;
+    font-size: 18px;
+}

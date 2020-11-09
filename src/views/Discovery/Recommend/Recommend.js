@@ -92,7 +92,7 @@ class Recommend extends React.Component{
                 >
                     <img
                         src={item.picUrl+"?param=200y200"}
-                        alt="1"
+                        alt=""
                         style={{borderRadius:"10px", maxWidth:"100%", maxHeight:"100%", width:"auto", height:"auto"}}
                     />
                     <p style={{fontSize:"15px"}}>{item.name}</p>
@@ -162,7 +162,7 @@ class Recommend extends React.Component{
                     }
 
                 </div>
-                <p style={{fontSize:"18px",marginLeft:"11%",marginBottom:"10px",marginTop:"50px"}}>推荐歌单 ></p>
+                <p style={{fontSize:"18px",marginLeft:"7%",marginBottom:"10px",marginTop:"50px"}}>推荐歌单 ></p>
                 <div className={style.playlist}>
                     {this.state.loading?
                         (<MoonLoader
@@ -172,7 +172,7 @@ class Recommend extends React.Component{
                         loading={this.state.loading}
                     />):DailyRecommendPlayListData}
                 </div>
-                <p style={{fontSize:"18px",marginLeft:"11%",marginBottom:"10px",marginTop:"50px"}}>独家放送 ></p>
+                <p style={{fontSize:"18px",marginLeft:"7%",marginBottom:"10px",marginTop:"50px"}}>独家放送 ></p>
                 <div className={style.private}>
                     {this.state.loading?
                         (<MoonLoader
@@ -182,7 +182,7 @@ class Recommend extends React.Component{
                             loading={this.state.loading}
                         />):PrivateContent}
                 </div>
-                <p style={{fontSize:"18px",marginLeft:"11%",marginBottom:"10px",marginTop:"50px"}}>最新音乐 ></p>
+                <p style={{fontSize:"18px",marginLeft:"7%",marginBottom:"10px",marginTop:"50px"}}>最新音乐 ></p>
                 <div className={style.musicdiv}>
 
                     {
@@ -207,7 +207,7 @@ class Recommend extends React.Component{
 
                     })}
                 </div>
-                <p style={{fontSize:"18px",marginLeft:"11%",marginBottom:"10px",marginTop:"50px"}}>推荐MV ></p>
+                <p style={{fontSize:"18px",marginLeft:"7%",marginBottom:"10px",marginTop:"50px"}}>推荐MV ></p>
                 <div className={style.mvdiv}>
                     {this.state.loading?
                         (<MoonLoader

@@ -1,5 +1,5 @@
 import {observable, action} from "mobx";
-import { setUserPlayList } from "../api/localPlayRecord"
+import { setUserPlayList } from "../api/local/localPlayRecord"
 class userPlayListState {
     @observable userLikePlayListID =
         localStorage.getItem("userLikePlayListID");

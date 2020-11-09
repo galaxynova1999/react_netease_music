@@ -104,8 +104,10 @@ class Singer extends React.Component{
 
 
     async handleStateChange(index) {
-        let id=this.props.match.params.id;
-        this.setState({loading: true});
+        let id = this.props.match.params.id;
+        this.setState({
+            loading: true
+        });
         switch (index) {
             case "0": {
                 this.setState({currentIndex: "0", loading: false})
@@ -306,7 +308,7 @@ class Singer extends React.Component{
             </div>
         }
         return(
-            <div style={{width:"70vw",paddingLeft:"40px"}}>
+            <div style={{ width:"70vw",paddingLeft:"40px" }}>
                 {this.state.info.introduction.map(function (item,index) {
                    return(
                        <div key={index}>
@@ -322,7 +324,7 @@ class Singer extends React.Component{
 
 
     simiSinger(){
-        if(this.state.simi.length===0){
+        if(this.state.simi.length === 0){
             return (
                 <div style={{width:"600px",marginLeft:"200px",lineHeight:"200px",textAlign:"center",fontSize:"18px"}}>
                     暂无数据
@@ -407,7 +409,7 @@ class Singer extends React.Component{
                                 <img
                                     src={createPicURL(this.state.detail.artist.picUrl,225,225)}
                                     alt=""
-                                    style={{borderRadius:"10px"}}
+                                    style={{ borderRadius:"10px" }}
                                 />
                             </LazyLoad>
 
@@ -419,9 +421,9 @@ class Singer extends React.Component{
                                     <span style={{fontSize:"25px",fontWeight:"bold",marginLeft:"5px"}}>{this.state.detail.artist.name}</span>
                                 </div>
                                 <div style={{marginTop:"20px"}}>
-                                    <p style={{}}>单曲数:{this.state.detail.artist.musicSize}</p>
-                                    <p style={{}}>专辑数:{this.state.detail.artist.albumSize}</p>
-                                    <p style={{}}>MV数:{this.state.detail.artist.mvSize}</p>
+                                    <p>单曲数:{this.state.detail.artist.musicSize}</p>
+                                    <p>专辑数:{this.state.detail.artist.albumSize}</p>
+                                    <p>MV数:{this.state.detail.artist.mvSize}</p>
                                     <p>简介:{this.describe()}</p>
                                 </div>
 

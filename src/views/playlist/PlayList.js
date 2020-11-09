@@ -139,16 +139,16 @@ class PlayList extends React.Component{
         if(type === "songlist"){
             getPlayListDetail(id).then( (res) => {
                 this.setState({
-                    detailForPlayList:res.data.playlist,
-                    subscribed:res.data.playlist.subscribed
+                    detailForPlayList:res.playlist,
+                    subscribed:res.playlist.subscribed
                 });
                 let tracksid = [];
-                for(let i = 0;i < res.data.playlist.tracks.length; i++){
-                    tracksid.push(res.data.playlist.tracks[i].id);
+                for(let i = 0;i < res.playlist.tracks.length; i++){
+                    tracksid.push(res.playlist.tracks[i].id);
                 }
                 getSongByTrackID(tracksid).then( (res) => {
                     this.setState({
-                        songdetail:res.data.songs,
+                        songdetail:res.songs,
                         loading_bottom:false,
                         loading_top:false
                     });
@@ -160,15 +160,15 @@ class PlayList extends React.Component{
         else{
             getAlbumDetail(id).then( (res) => {
                 this.setState({
-                    detailForAlbum:res.data.album,
-                    songdetail:res.data.songs
+                    detailForAlbum:res.album,
+                    songdetail:res.songs
                 })
                 getAlbumInfo(id).then( (res) => {
                   this.setState({
-                      isSub:res.data.isSub,
-                      likedCount:res.data.likedCount,
-                      shareCount:res.data.shareCount,
-                      commentCount:res.data.commentCount,
+                      isSub:res.isSub,
+                      likedCount:res.likedCount,
+                      shareCount:res.shareCount,
+                      commentCount:res.commentCount,
                       loading_bottom:false,
                       loading_top:false
                   });
@@ -186,33 +186,35 @@ class PlayList extends React.Component{
 
 
     async handleStateChange(index) {
-        this.setState({loading_bottom:true});
+        this.setState({
+            loading_bottom: true
+        });
         switch (index) {
             case "0": {
-                this.setState({currentIndex: "0", loading_bottom: false})
-                return;
+                this.setState({
+                    currentIndex: "0",
+                    loading_bottom: false
+                });
+                break;
             }
             case "1": {
-                this.setState({currentIndex: "1"})
-                let type = this.props.match.params.type === "songlist" ? "playlist" : "album"
+                this.setState({
+                    currentIndex: "1"
+                });
+                let type = this.props.match.params.type === "songlist" ? "2" : "3";
                 if (this.state.comment.length === 0) {
                     let res = await getComment(this.props.match.params.id, type);
-                    if (res.data.comments.length === 0) {
-                        this.setState({
-                            loading_bottom: false
-                        });
-                        return ;
-                    }
                     this.setState({
                         loading_bottom: false,
-                        comment: res.data.comments
+                        comment: res.data.comments || []
                     });
-                    return;
                 }
-                this.setState({
-                    loading_bottom:false
-                });
-                return;
+                else {
+                    this.setState({
+                        loading_bottom:false
+                    });
+                }
+                break;
             }
             case "2": {
                 this.setState({
@@ -221,38 +223,25 @@ class PlayList extends React.Component{
                 if(this.props.match.params.type === "songlist"){
                     if (this.state.collector.length === 0) {
                         let res = await getPlayListSubscribers(this.props.match.params.id);
-                        if (res.data.subscribers.length === 0) {
-                            this.setState({
-                                loading_bottom: false
-                            });
-                            return ;
-                        }
                         this.setState({
                             loading_bottom: false,
-                            collector: res.data.subscribers
+                            collector: res.subscribers || []
                         });
-                        return;
+                    }
+                    else {
+                        this.setState({
+                            loading_bottom:false
+                        });
+                        break;
                     }
                 }
-                else {
-                    this.setState({
-                        loading_bottom:false
-                    });
-                    return ;
-                }
-                this.setState({
-                    loading_bottom:false
-                });
-                return ;
             }
             default:
                 return null;
         }
     }
     handleSelectAlbum(id){
-        this.props.history.push({
-            pathname:"/playlist/album/"+id
-        });
+        changeRouteToAlbum(this.props,id);
     }
     handleCollect(){
         if(!checkLogin())
@@ -546,17 +535,30 @@ class PlayList extends React.Component{
                             css={override}
                             color={"#123abc"}
                             loading={this.state.loading_top}
-                        />:
+                        />
+                        :
                         <div className={style.top}>
                         <div className={style.image}>
-                            <LazyLoad height={225}>
+                            <LazyLoad height={225} once={true}>
                                 {img}
                             </LazyLoad>
                         </div>
                         <div className={style.info}>
                             <div style={{height:"60px"}}>
                                 <div style={{float:"left"}}>
-                                    <div style={{width:"45px",height:"30px",backgroundColor:"rgb(198,47,47)",display:"inline-block",textAlign:"center",lineHeight:"30px",borderRadius:"5px",color:"white"}}>{this.props.match.params.type==="songlist"?"歌单":"专辑"}</div>
+                                    <div style={{
+                                        width:"45px",
+                                        height:"30px",
+                                        backgroundColor:"rgb(198,47,47)",
+                                        display:"inline-block",
+                                        textAlign:"center",
+                                        lineHeight:"30px",
+                                        borderRadius:"5px",
+                                        color:"white"
+                                    }}
+                                    >
+                                        {this.props.match.params.type === "songlist" ? "歌单" : "专辑"}
+                                    </div>
                                     {name}
                                 </div>
                                 {
@@ -573,14 +575,13 @@ class PlayList extends React.Component{
                             {
                                 this.props.match.params.type === "songlist" &&
                                 <div style={{display:"flex",alignItems:"center"}}>
-                                    <img src={this.state.detailForPlayList.creator.avatarUrl+"?param=40y40"} alt="1111" style={{borderRadius:"50%"}}/>
+                                    <img src={this.state.detailForPlayList.creator.avatarUrl+"?param=40y40"} alt="" style={{borderRadius:"50%"}}/>
                                     <span style={{marginLeft:"10px"}}>{this.state.detailForPlayList.creator.nickname}</span>
                                     <span style={{marginLeft:"20px"}}>{moment(this.state.detailForPlayList.createTime).format("YYYY-MM-DD")}创建</span>
                                 </div>
                             }
 
                             <div style={{marginTop:"20px"}}>
-
                                     <PlayAllButton
                                         variant="contained"
                                         startIcon={<PlayCircleFilledSharpIcon />}

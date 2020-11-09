@@ -14,7 +14,7 @@ import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import ShareIcon from '@material-ui/icons/Share';
 import LibraryAddOutlinedIcon from '@material-ui/icons/LibraryAddOutlined';
 import {formatSongDuration} from "../../util/convenience"
-import {getComment, getHotComment} from "../../api/Comment";
+import {getComment} from "../../api/Comment";
 import {withRouter} from "react-router-dom";
 import {css} from "@emotion/core";
 import MoonLoader from 'react-spinners/MoonLoader'

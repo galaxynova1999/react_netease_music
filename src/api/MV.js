@@ -1,40 +1,57 @@
-import request from "../util/axios";
-import {getCookie} from "./Cookie";
+import {get,post} from "../util/axios";
+
 function getMVDetails(id){
-    return request.get("/mv/detail?mvid="+id+"&cookie="+getCookie());
+    return get("/mv/detail",{
+        mvid:id
+    });
 }
 function getMVVideoRealSrc(id) {
-    return request.get("/mv/url?id="+id+"&cookie="+getCookie());
+    return get("/mv/url",{
+        id
+    });
 }
 
 function getMVInfo(id) {
-    return request.get("/mv/detail/info?mvid="+id+"&cookie="+getCookie());
+    return get("/mv/detail/info",{
+        mvid:id
+    });
 }
 
 
 function getSimiMV(id) {
-    return request.get("/simi/mv?mvid="+id+"&cookie="+getCookie());
+    return get("/simi/mv",{
+        mvid:id
+    });
 }
 
 function getVideoDetails(id) {
-   return request.get("/video/detail/?id="+id+"&cookie="+getCookie());
+   return get("/video/detail",{
+            id
+      });
 }
+
 function getVideoInfo(id) {
-   return request.get("/video/detail/info?vid="+id+"&cookie="+getCookie());
+   return get("/video/detail/info",{
+       vid:id
+   });
 }
 
 function getVideoRealSrc(id) {
-   return request.get("/video/url?id="+id+"&cookie="+getCookie());
+   return get("/video/url",{
+       id
+    });
 }
 function getSimiVideo(id) {
-   return request.get("/related/allvideo?id="+id+"&cookie="+getCookie());
+   return get("/related/allvideo",{
+       id
+   });
 }
 
 function getVideoTag() {
-    return request.get("/video/group/list");
+    return get("/video/group/list");
 }
 function getVideoCat() {
-   return request.get("/video/category/list");
+   return get("/video/category/list");
 }
 
 export  {

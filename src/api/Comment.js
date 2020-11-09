@@ -1,31 +1,44 @@
-import request from "../util/axios";
-import {getCookie} from "./Cookie";
+import {get,post} from "../util/axios";
+
 
 function sendComment(type,t,id,content,commentID) {
-    let url="/comment?t="+t+"&type="+type+"&id="+id+"&content="+content;
-    if(t===2){
-        url+="&commentId="+commentID;
-    }
-    url+="&cookie="+getCookie();
-    return request.post(url)
+
+    return post("/comment",{
+        t,
+        type,
+        id,
+        content,
+        commentId:t === 2 ? commentID : null
+    });
 }
 
 
 function likeComment(id,cid,t,type) {
-  let url="/comment/like?id="+id+"&cid="+cid+"&t="+t+"&type="+type;
-    url+="&cookie="+getCookie();
-  return request.post(url);
+
+  return post("/comment/like",{
+      id,
+      cid,
+      t,
+      type
+  });
 }
 
 function getComment(id,type,pageNo = 1,pageSize = 6,sortType = 2) {
-    let url = `/comment/new?type=${type}&id=${id}&sortType=${sortType}&pageSize=${pageSize}&pageNo=${pageNo}&cookie=${getCookie()}`;
-    return request.get(url);
+    return get('/comment/new',{
+        type,
+        id,
+        sortType,
+        pageSize,
+        pageNo
+    });
 }
 
 function getHotComment(id,type) {
-  let url="/comment/hot?id="+id+"&type="+type;
-    url+="&cookie="+getCookie();
-  return request.get(url);
+
+  return get('/comment/hot',{
+      id,
+      type
+  });
 }
 
 

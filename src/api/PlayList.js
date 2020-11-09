@@ -1,20 +1,31 @@
-import request from "../util/axios";
-import {getCookie} from "./Cookie";
+import {get,post} from "../util/axios";
 
 function getRelatedPlayList(id) {
-  return request.get("/simi/playlist?id="+id+"&cookie=" + getCookie());
+  return get("/simi/playlist",{
+      id
+  });
 }
 
 function getPlayListDetail(id) {
-    return request.get("/playlist/detail?id=" + id + "&s=5&cookie=" + getCookie());
+    return get("/playlist/detail",{
+        id,
+        s:8
+    });
 }
 
 function getPlayListSubscribers(id) {
-    return request.get("/playlist/subscribers?id=" + id + "&limit=20");
+    return get("/playlist/subscribers",{
+        id,
+        limit:20
+    });
 }
 
 function addNewSongToPlayList(pid,id) {
-   return request.post("/playlist/tracks?op=add&pid="+pid+"&tracks="+id+"&cookie="+getCookie());
+   return post("/playlist/tracks",{
+       op:'add',
+       pid,
+       tracks:id
+   });
 }
 
 export {

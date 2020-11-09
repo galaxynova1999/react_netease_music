@@ -14,7 +14,7 @@ import {observer} from "mobx-react";
 import songState from "../../mobx/songState";
 import MusicDetailState from "../../mobx/DetailState";
 import Slider from '@material-ui/core/Slider';
-import {getLastSong,getNextSong,getPrevSong} from "../../api/localPlayRecord"
+import {getLastSong,getNextSong,getPrevSong} from "../../api/local/localPlayRecord"
 import {Popover} from "@material-ui/core";
 import UserPlayRecordAndPlayHistory from "../playrecord/playrecord";
 import withStyles from "@material-ui/core/styles/withStyles";

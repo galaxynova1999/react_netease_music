@@ -24,6 +24,7 @@ import detailState from '../../mobx/DetailState'
 import Pagination from '@material-ui/lab/Pagination';
 import songState from "../../mobx/songState";
 import {PLAYING} from "../../util/constant";
+import LazyLoad from 'react-lazyload'
 
 @observer
 class MusicDetail extends React.Component{
@@ -195,87 +196,88 @@ class MusicDetail extends React.Component{
         return (
             <div className={styles.musicDetail}>
                 <div className={styles.top}>
-                    <div className={styles.topLeft}>
-                        <img
-                            src={createPicURL(detailState.data.pic,350,350)}
-                            style={{borderRadius:"50%",marginTop:"20%"}}
-                            alt="pic"
-                            className={classnames(styles.pic,songState.playStatus === PLAYING ? styles.pic_ani : styles.pic_no_ani)}
-                        />
-                        <div style={{marginTop:"100px",marginLeft:"20px"}}>
-                            <ThemeProvider theme={theme}>
+                        <div className={styles.topLeft}>
+                            <img
+                                src={createPicURL(detailState.data.pic,350,350)}
+                                style={{ borderRadius:"50%",marginTop:"20%" }}
+                                alt=""
+                                className={classnames(styles.pic,songState.playStatus === PLAYING ? styles.pic_ani : styles.pic_no_ani)}
+                            />
+                            <div style={{ marginTop:"100px",marginLeft:"20px" }}>
+                                <ThemeProvider theme={theme}>
+                                    <Button
+                                        variant={"outlined"}
+                                        style={{fontSize:"15px"}}
+                                        startIcon={<FavoriteIcon />}
+                                    >
+                                        喜欢
+                                    </Button>
+                                </ThemeProvider>
                                 <Button
-                                    variant={"outlined"}
-                                    style={{fontSize:"15px"}}
-                                    startIcon={<FavoriteIcon />}
+                                    variant="outlined"
+                                    style={{marginLeft:"15px",fontSize:"15px"}}
+                                    startIcon={<ShareIcon/>}
                                 >
-                                    喜欢
+                                    分享
                                 </Button>
-                            </ThemeProvider>
-                            <Button
-                                variant="outlined"
-                                style={{marginLeft:"15px",fontSize:"15px"}}
-                                startIcon={<ShareIcon/>}
-                            >
-                                分享
-                            </Button>
-                            <Button
-                                variant="outlined"
-                                style={{marginLeft:"15px",fontSize:"15px"}}
-                                startIcon={<LibraryAddOutlinedIcon/>}
-                                id="collect"
-                                onClick={ () => {
-                                    this.setState({
-                                        myCollect:true
-                                    })
-                                }}
-                            >
-                                收藏
-                            </Button>
-
-                            <Popover
-                                open={this.state.openCollect}
-                                onClose={() => {
-                                    this.setState({
-                                        openCollect : false
-                                    })
-                                }}
-                                anchorEl={document.getElementById("collect")}
-                                anchorOrigin={{
-                                    vertical: 'center',
-                                    horizontal: 'right',
-                                }}
-                                transformOrigin={{
-                                    vertical: 'bottom',
-                                    horizontal: 'left',
-                                }}
-                                disableEnforceFocus={true}
-                            >
-                                <div style={{width:"300px",height:"250px",overflowY:"scroll"}} className={styles.collect}>
-                                    {
-                                        userPlayList.playList && userPlayList.playList.map( (item,index) => {
-                                              return(
-                                                  <div
-                                                      style={{display:"flex",height:"80px"}}
-                                                      key={index}
-                                                      className={styles.collect_item}
-                                                      onClick={this.handleCollect.bind(this,item.id)}
-                                                  >
-                                                      <div style={{margin:"15px"}}>
-                                                          <img src={item.coverImgUrl+"?param=50y50"} alt="pic"/>
-                                                      </div>
-                                                      <div style={{marginTop:"15px"}}>
-                                                          <p>{item.name}</p>
-                                                          <p>{item.trackCount}首音乐</p>
-                                                      </div>
-                                                  </div>
-                                              )
+                                <Button
+                                    variant="outlined"
+                                    style={{marginLeft:"15px",fontSize:"15px"}}
+                                    startIcon={<LibraryAddOutlinedIcon/>}
+                                    id="collect"
+                                    onClick={ () => {
+                                        this.setState({
+                                            myCollect:true
                                         })
-                                    }
-                                </div>
-                            </Popover>
+                                    }}
+                                >
+                                    收藏
+                                </Button>
+
+                                <Popover
+                                    open={this.state.openCollect}
+                                    onClose={() => {
+                                        this.setState({
+                                            openCollect : false
+                                        })
+                                    }}
+                                    anchorEl={document.getElementById("collect")}
+                                    anchorOrigin={{
+                                        vertical: 'center',
+                                        horizontal: 'right',
+                                    }}
+                                    transformOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'left',
+                                    }}
+                                    disableEnforceFocus={true}
+                                >
+                                    <div style={{width:"300px",height:"250px",overflowY:"scroll"}} className={styles.collect}>
+                                        {
+                                            userPlayList.playList && userPlayList.playList.map( (item,index) => {
+                                                return(
+                                                    <div
+                                                        style={{display:"flex",height:"80px"}}
+                                                        key={index}
+                                                        className={styles.collect_item}
+                                                        onClick={this.handleCollect.bind(this,item.id)}
+                                                    >
+                                                        <div style={{margin:"15px"}}>
+                                                            <img src={item.coverImgUrl+"?param=50y50"} alt="pic"/>
+                                                        </div>
+                                                        <div style={{marginTop:"15px"}}>
+                                                            <p>{item.name}</p>
+                                                            <p>{item.trackCount}首音乐</p>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </Popover>
+                            </div>
                         </div>
-                    </div>
+
                     <div className={styles.topRight}>
                         <p style={{fontWeight:"bold"}}>{detailState.data.name}</p>
                         <p style={{fontSize:"0.45em"}}>

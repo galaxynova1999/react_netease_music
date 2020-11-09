@@ -1,5 +1,4 @@
-import request from "../util/axios";
-import {getCookie} from "./Cookie";
+import {get,post} from "../util/axios";
 
 function setUserDetail(data) {
    localStorage.setItem("userid",data.account.id);
@@ -10,12 +9,11 @@ function setUserDetail(data) {
 }
 
 function getLoginState() {
-  let state=localStorage.getItem("login");
-  return state === "1"
+  return localStorage.getItem("login") === "1"
 }
 
 function setLoginState(state) {
-  localStorage.setItem("login",state===true?"1":"0")
+  localStorage.setItem("login",state ? "1" : "0");
 }
 function getUserID() {
   return parseInt(localStorage.getItem("userid"));
@@ -41,11 +39,13 @@ function clearUser() {
 }
 
 function signIn() {
-   return request.post("/daily_signin?type=1&cookie="+getCookie());
+   return post("/daily_signin",{
+       type:1
+   });
 }
 
 function getMeCloud() {
-  return request.get("/user/cloud?cookie="+getCookie());
+  return get("/user/cloud");
 }
 
 export {

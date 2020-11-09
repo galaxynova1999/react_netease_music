@@ -1,11 +1,9 @@
-import {toast} from "react-toastify";
+import { toast } from "react-toastify";
 
 function createError(message) {
-    console.log(message);
-    debugger
+
     toast.warn(`错误 ${message}`, {
         position: "top-right",
-        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
     });
@@ -14,7 +12,7 @@ function createError(message) {
 function createSuccess(message) {
     toast.success(message, {
         position: "top-right",
-        autoClose: 1000,
+        autoClose: 500,
         hideProgressBar: false,
         closeOnClick: true,
         draggable: true,
@@ -33,7 +31,6 @@ function createInfo(message) {
 function createWarn(message) {
     toast.warn(message, {
         position: "top-right",
-        autoClose: 1000,
         hideProgressBar: false,
         closeOnClick: true,
     });

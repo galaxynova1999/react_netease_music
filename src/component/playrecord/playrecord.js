@@ -3,7 +3,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import {ThemeProvider} from "@material-ui/styles";
 import style from "./style.module.css"
-import {getUserPlayList} from "../../api/userPlayRecord";
+import {getUserPlayList} from "../../api/local/userPlayRecord";
 import TableContainer from "@material-ui/core/TableContainer";
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -11,7 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import {formatSongDuration} from "../../util/convenience";
-import {getPlayRecord} from "../../api/localPlayRecord";
+import {getPlayRecord} from "../../api/local/localPlayRecord";
 import theme from "../../util/Theme";
 import {changeSong} from "../../util/convenience";
 function UserPlayRecordAndPlayHistory() {

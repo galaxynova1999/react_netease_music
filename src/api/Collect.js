@@ -1,16 +1,15 @@
-import request from "../util/axios";
-import {getCookie} from "./Cookie";
+import {get,post} from "../util/axios";
 
 function getUserCollectSinger() {
-  return request.get("/artist/sublist?cookie="+getCookie());
+  return get("/artist/sublist");
 
 }
 function getUserCollectVideo() {
-  return request.get("/mv/sublist?cookie="+getCookie());
+  return get("/mv/sublist");
 }
 
 function getUserCollectAlbum() {
-  return request.get("/album/sublist?cookie="+getCookie());
+  return get("/album/sublist");
 }
 
 export {

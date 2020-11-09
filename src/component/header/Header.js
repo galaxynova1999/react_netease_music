@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import style from "./style.module.css"
 import InputBase from '@material-ui/core/InputBase';
 import loginState from "../../mobx/loginState"
-import {addNewSearchHistory, delSearchHistory, getSearchHistory} from "../../api/searchHistory"
+import {addNewSearchHistory, delSearchHistory, getSearchHistory} from "../../api/local/searchHistory"
 import {getHotSearch, searchSuggest} from "../../api/Search"
 import SearchIcon from '@material-ui/icons/Search';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -534,7 +534,9 @@ export default withRouter(observer(function BasicHeader(props){
                                        }} style={{color:"white"}}>
                                           登录
                                        </Button>
-                                       <Login open={login}/>
+                                       <Login open={login} close={() => {
+                                           setLogin(false)
+                                       }}/>
                                     </div>
                                 )
                         }

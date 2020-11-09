@@ -1,12 +1,11 @@
-import request from "../util/axios";
-import {getCookie} from "./Cookie";
+import {get,post} from "../util/axios";
 
 function getAlbumDetail(id) {
-   return request.get("/album?id="+id);
+   return get("/album",{id});
 }
 
 function getAlbumInfo(id) {
-  return request.get("/album/detail/dynamic?id="+id+"&cookie="+getCookie());
+  return get("/album/detail/dynamic",{id});
 }
 
 

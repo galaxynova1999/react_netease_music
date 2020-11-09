@@ -1,35 +1,46 @@
-import request from "../util/axios";
-import {getCookie} from "./Cookie";
+import {get,post} from "../util/axios";
+
 function getBanner(){
-    return request.get("/banner");
+    return get("/banner");
 }
 function getDailyRecommendPlayList() {
-    return request.get("/personalized?limit=10");
+    return get("/personalized",{
+        limit:10
+    });
 }
 
 function getDailyRecommendNewMusic() {
-    return request.get("/personalized/newsong");
+    return get("/personalized/newsong");
 }
 function getDailyRecommendNewMV() {
-    return request.get("/personalized/mv");
+    return get("/personalized/mv");
 }
 function getPrivateContent() {
-   return request.get("/personalized/privatecontent");
+   return get("/personalized/privatecontent");
 }
 
 function getLeaderBoard() {
-    return request.get("/toplist");
+    return get("/toplist");
 }
 
 function getSingerList(area,type,init) {
-   return request.get("/artist/list?type="+type+"&area="+area+"&initial="+init+"&cookie="+getCookie()+"&limit=30")
+   return get("/artist/list",{
+       type,
+       area,
+       initial:init,
+       limit:30
+   });
 }
 
 function topSong(type) {
-  return request.get("/top/song?type="+type);
+  return get("/top/song",{
+      type
+  });
 }
 function topAlbum() {
-  return request.get("/top/album?limit=30")
+  return get("/top/album",{
+      limit:30
+  });
 }
 
 export {

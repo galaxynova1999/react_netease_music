@@ -1,33 +1,60 @@
-import request from "../util/axios";
-import {formatSongDuration} from "../util/convenience"
-import {getCookie} from "./Cookie";
-import {createError} from "../component/notification/Notification";
+import { get } from "../util/axios";
+import { formatSongDuration } from "../util/convenience";
+import { createError } from "../component/notification/Notification";
+
+function checkMusic(id) {
+    return get('/check/music',{
+        id
+    })
+}
+function getSongDetailData(ids) {
+    return get('/song/detail',{
+        ids
+    })
+}
+function getSongURL(id) {
+    return get('/song/url',{
+        id
+    })
+}
+
+function getSongLyric(id) {
+    return get('/lyric',{
+        id
+    })
+}
+
+function getSimiSong(id) {
+    return get('/simi/song',{
+        id
+    })
+}
 
 
 async function getSong(id) {
         let song={};
 
-        let response = await request.get("/check/music?id="+id);
+        let response = await checkMusic(id);
         if(!response.data.success){
             createError(response.data.message);
             return null;
         }
 
-        let res = await request.get("/song/detail?ids="+id+"&cookie="+getCookie());
+        let res = await getSongDetailData(id);
         let data = res.data.songs[0];
         song.id = data.id;
         song.name = data.name;
         song.author = data.ar[0].name;
         song.totaltime = formatSongDuration(data.dt);
         song.pic = data.al.picUrl;
-        let res_url = await request.get("/song/url?id="+id+"&cookie="+getCookie());
+        let res_url = await getSongURL(id);
         song.src = res_url.data.data[0].url;
 
         return song;
 }
 async function getSongDetail(id) {
     let song = {};
-    let lyric = await request.get("/lyric?id="+id+"&cookie="+getCookie());
+    let lyric = await getSongLyric(id);
     if(lyric.data.nolyric){
         song.lyric = null;
         song.tlyric = null;
@@ -42,19 +69,13 @@ async function getSongDetail(id) {
         }
 
     }
-    let simi = await request.get("/simi/song?id="+id);
+    let simi = await getSimiSong(id);
     song.simi = simi.data.songs;
     return song;
 }
 
 function getSongByTrackID(tracks) {
-     let url = "/song/detail?ids=";
-     for(let i = 0;i < tracks.length - 1; i++) {
-         url += tracks[i] + ",";
-     }
-     url += tracks[tracks.length - 1];
-     url += "&cookie="+getCookie();
-     return request.get(url);
+     return getSongDetailData(tracks.join(','))
 }
 
 

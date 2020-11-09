@@ -1,5 +1,5 @@
 import * as moment from "moment";
-import songState from "../mobx/songState";
+import songState from "../../mobx/songState";
 
 
 function setNewPlayRecord(list) {

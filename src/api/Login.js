@@ -1,12 +1,12 @@
-import request from "../util/axios";
-import {clearCookie, getCookie} from "./Cookie";
-import {clearUser, getUserID} from "./Me"
+import { get,post } from "../util/axios";
+import { clearCookie } from "./local/Cookie";
+import { clearUser, getUserID } from "./Me"
 import LoginState from "../mobx/loginState"
 import userPlayList from "../mobx/userPlayListState";
-import { clearUserPlayList } from "./userPlayRecord";
+import { clearUserPlayList } from "./local/userPlayRecord";
 
 function LoginByPhone(phone,pwd) {
-   return  request.post("/login/cellphone",{
+   return post("/login/cellphone",{
         phone:phone,
         password:pwd,
         timestamp:new Date().getTime()
@@ -14,7 +14,7 @@ function LoginByPhone(phone,pwd) {
 }
 
 function LoginByMail(email,pwd) {
-    return request.post("/login",{
+    return post("/login",{
         email:email,
         password:pwd
     })
@@ -22,25 +22,26 @@ function LoginByMail(email,pwd) {
 
 
 function LogOut() {
-    return request.post("/logout").then(function () {
+    post("/logout").then(function () {
         clearCookie();
         clearUser();
         clearUserPlayList();
         LoginState.changeState(false);
         userPlayList.updatePlayList(null,null);
-    })
-
-
+    });
 }
 
 function getUserDetailCount() {
-   return request.get("/user/subcount?cookie="+getCookie());
+   return get("/user/subcount");
 }
 
 
 
 function getUserRecentWeekPlayRecord() {
-  return request.get("/user/record?uid="+getUserID()+"&type=1&cookie="+getCookie());
+  return get("/user/record",{
+      uid:getUserID(),
+      type:1
+  });
 }
 
 

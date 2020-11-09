@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { addNewSong } from "../api/localPlayRecord"
+import { addNewSong } from "../api/local/localPlayRecord"
 import { calcSecond } from "../util/convenience";
 
 

@@ -10,11 +10,11 @@ import Input from "@material-ui/core/Input";
 import FormControl from "@material-ui/core/FormControl";
 import {LoginByPhone, getUserRecentWeekPlayRecord} from "../../api/Login"
 import {getUserPlayList} from "../../api/User";
-import {setCookie} from "../../api/Cookie"
+import {setCookie} from "../../api/local/Cookie"
 import {getUserID, setUserDetail} from "../../api/Me"
 import userPlayList from "../../mobx/userPlayListState";
 import loginState from "../../mobx/loginState";
-import {setUserPlayList} from "../../api/userPlayRecord";
+import {setUserPlayList} from "../../api/local/userPlayRecord";
 import {createError, createSuccess} from "../notification/Notification";
 import { makeStyles } from '@material-ui/core/styles'
 import { green } from "@material-ui/core/colors";
@@ -54,30 +54,29 @@ function Login(props)  {
 
 
 
-   async function handleOK() {
+   function handleOK() {
       //Todo 手机号验证 输入验证
 
       setLoading(true);
-
-      let success = await LoginByPhone(phone,pwd);
-
-      if(success.data.cookie) {
-         let playListData = await getUserPlayList(getUserID());
-         let playRecordData = await getUserRecentWeekPlayRecord();
-         setCookie(success.data.cookie);
-         setUserDetail(success.data);
-
-         userPlayList.updatePlayList(playListData.data.playlist[0].id,playListData.data.playlist.slice(1));
-         loginState.changeState(true);
-
-         setUserPlayList(playRecordData.data.weekData);
-         setOpen(false);
-         createSuccess("登录成功!");
-      }
-      else {
+      LoginByPhone(phone,pwd).then((success) => {
+         debugger
+         if(success.data.cookie) {
+               setCookie(success.data.cookie);
+               setUserDetail(success.data);
+               Promise.all([getUserPlayList(getUserID()),getUserRecentWeekPlayRecord()]).then(([playListData,playRecordData]) => {
+                  userPlayList.updatePlayList(playListData.data.playlist[0].id, playListData.data.playlist.slice(1));
+                  loginState.changeState(true);
+                  setUserPlayList(playRecordData.data.weekData);
+                  setOpen(false);
+                  createSuccess("登录成功!");
+               })
+         }
+      }).catch(err => {
          setLoading(false);
-         createError("登录失败")
-      }
+         createError("登录失败" + err);
+      })
+
+
    }
 
       return (
@@ -107,7 +106,9 @@ function Login(props)  {
                    </FormControl>
                 </DialogContent>
                 <DialogActions>
-                   <Button onClick={props.close} color="primary">
+                   <Button onClick={() => {
+                      props.close()
+                   }} color="primary">
                       取消
                    </Button>
                    <div className={classes.wrapper}>
@@ -129,4 +130,4 @@ function Login(props)  {
 }
 
 
-export default withRouter(Login);
+export default withRouter(Login)

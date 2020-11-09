@@ -1,23 +1,34 @@
-import request from "../util/axios";
-import {getCookie} from "./Cookie";
+import {get,post} from "../util/axios";
+
 function getSingerInfo(id) {
-   return request.get("/artists?id="+id);
+   return get("/artists",{
+       id
+   });
 }
 
 function getSingerMV(id) {
-  return request.get("/artist/mv?id="+id);
+  return get("/artist/mv",{
+      id
+  });
 }
 
 function getSingerAlbum(id) {
- return request.get("/artist/album?id="+id+"&limit=8");
+ return get("/artist/album",{
+     id,
+     limit:8
+ });
 }
 
 function getSingerDes(id) {
- return request.get("/artist/desc?id="+id);
+ return get("/artist/desc",{
+     id
+ });
 }
 
 function getSimiSinger(id) {
- return request.get("/simi/artist?id="+id+"&cookie="+getCookie());
+ return get("/simi/artist",{
+     id
+ });
 }
 
 export {

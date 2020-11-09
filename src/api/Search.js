@@ -1,14 +1,20 @@
-import request from "../util/axios";
-import {getCookie} from "./Cookie";
+import {get,post} from "../util/axios";
+
 function getHotSearch() {
-   return request.get("/search/hot/detail");
+   return get("/search/hot/detail");
 }
 
 function Search(keyword,type,limit=30) {
-   return request.get("/search?keywords="+keyword+"&type="+type+"&limit="+limit);
+   return get("/search",{
+       keyword,
+       type,
+       limit
+   });
 }
 function searchSuggest(keyword) {
-  return request.get("/search/suggest?keywords="+keyword+"&cookie="+getCookie());
+  return get("/search/suggest",{
+      keyword
+  });
 }
 
 export {

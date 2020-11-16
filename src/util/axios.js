@@ -54,7 +54,7 @@ export function post(url,params) {
   return new Promise((resolve, reject) => {
     request.post(url, params)
         .then(res => {
-          resolve(res.data);
+          resolve(res);
         })
         .catch(err =>{
           reject(err)
@@ -69,7 +69,7 @@ export function get(url,params) {
        }
     })
         .then(res => {
-          resolve(res.data);
+          resolve(res);
         })
         .catch(err =>{
           reject(err)

@@ -7,7 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import {changeRouteToUser, formatSongDuration} from "../../util/convenience";
+import {changeRouteToUser, createPicURL, formatSongDuration} from "../../util/convenience";
 import TableContainer from "@material-ui/core/TableContainer";
 import {observer} from "mobx-react";
 import Button from "@material-ui/core/Button";
@@ -185,28 +185,26 @@ class PlayList extends React.Component{
     }
 
 
-    async handleStateChange(index) {
+    handleStateChange(index) {
         this.setState({
-            loading_bottom: true
+            loading_bottom: true,
+            currentIndex:index
         });
         switch (index) {
             case "0": {
                 this.setState({
-                    currentIndex: "0",
                     loading_bottom: false
                 });
                 break;
             }
             case "1": {
-                this.setState({
-                    currentIndex: "1"
-                });
                 let type = this.props.match.params.type === "songlist" ? "2" : "3";
                 if (this.state.comment.length === 0) {
-                    let res = await getComment(this.props.match.params.id, type);
-                    this.setState({
-                        loading_bottom: false,
-                        comment: res.data.comments || []
+                    getComment(this.props.match.params.id, type).then((res) => {
+                        this.setState({
+                            loading_bottom: false,
+                            comment: res.data.comments || []
+                        });
                     });
                 }
                 else {
@@ -217,15 +215,13 @@ class PlayList extends React.Component{
                 break;
             }
             case "2": {
-                this.setState({
-                    currentIndex: "2"
-                })
                 if(this.props.match.params.type === "songlist"){
                     if (this.state.collector.length === 0) {
-                        let res = await getPlayListSubscribers(this.props.match.params.id);
-                        this.setState({
-                            loading_bottom: false,
-                            collector: res.subscribers || []
+                        getPlayListSubscribers(this.props.match.params.id).then((res) => {
+                            this.setState({
+                                loading_bottom: false,
+                                collector: res.subscribers || []
+                            });
                         });
                     }
                     else {
@@ -235,6 +231,7 @@ class PlayList extends React.Component{
                         break;
                     }
                 }
+                break;
             }
             default:
                 return null;
@@ -248,14 +245,14 @@ class PlayList extends React.Component{
             return;
         let id = this.props.match.params.id;
         if(this.props.match.params.type === "songlist"){
-         if(this.state.subscribed===true){
+         if(this.state.subscribed){
              subScribePlayList(id,2).then( (res) => {
                      createSuccess("取消收藏成功");
                      this.setState({
                          subscribed:false
                      });
              }).catch(function (err) {
-                     createError(err);
+                 createError(err);
              })
          }
          else {
@@ -270,7 +267,7 @@ class PlayList extends React.Component{
          }
      }
         else {
-            if(this.state.isSub === true){
+            if(this.state.isSub){
                 subScribeAlbum(id,0).then( (res) => {
                     createSuccess("取消收藏成功");
                     this.setState({
@@ -295,7 +292,7 @@ class PlayList extends React.Component{
 
     songList() {
         return(
-            <div className={style.songlist}>
+            <div className={ style.songList }>
                 <TableContainer >
                     <Table style={{ width:"70vw" }}>
                         <TableHead>
@@ -310,8 +307,12 @@ class PlayList extends React.Component{
                         <TableBody>
                             { this.state.songdetail.map((row,index) => (
 
-                                <TableRow key={row.id} onDoubleClick={this.handleSelect.bind(this,row.id)} hover={true} >
-                                    <TableCell >
+                                <TableRow
+                                    key={row.id}
+                                    onDoubleClick={this.handleSelect.bind(this,row.id)}
+                                    hover={true}
+                                >
+                                    <TableCell>
                                         {
                                             index < 9 ? "0"+(index+1) : index+1
                                         }
@@ -319,40 +320,33 @@ class PlayList extends React.Component{
                                     <TableCell component="th" scope="row">
                                         <span>{row.name}</span>
                                         {
-                                            row.alia.length !== 0 && <span style={{color:"#bababa"}}>({row.alia[0]})</span>
+                                            row.alia.length !== 0 && <span style={{color:"#bababa"}}>({row.alia.join('/')})</span>
                                         }
                                     </TableCell>
                                     <TableCell  >
                                         {
-                                          row.ar.map( (item,index,array) => {
-                                                if(index === array.length - 1){
-                                                    return <span
-                                                        key={index}
-                                                        className={style.singer}
-                                                        onClick={() => {changeRouteToSinger(this.props,item.id)}}
-                                                    >
-                                                        {item.name}
-                                                    </span>;
-                                                }
-                                                else {
-                                                    return <span
-                                                        key={index}
-                                                        className={style.singer}
-                                                        onClick={() => {changeRouteToSinger(this.props,item.id)}}
-                                                    >
-                                                        {item.name+"/"}
-                                                    </span>
-                                                }
+                                          row.ar.map((item,index,array) => {
+                                                    return (
+                                                            <span
+                                                                key={ item.id }
+                                                                className={ style.singer }
+                                                                onClick={() => { changeRouteToSinger(this.props,item.id)}}
+                                                            >
+                                                             {
+                                                                index === array.length - 1 ? item.name : item.name + '/'
+                                                             }
+                                                            </span>
+                                                     )
                                             })
                                         }
                                     </TableCell>
                                     <TableCell
-                                        onClick={() => {changeRouteToAlbum(this.props,row.al.id)}}
-                                        className={style.album}
+                                        onClick={() => { changeRouteToAlbum(this.props,row.al.id) }}
+                                        className={ style.album }
                                     >
                                         {row.al.name}
                                     </TableCell>
-                                    <TableCell >{formatSongDuration(row.dt)}</TableCell>
+                                    <TableCell >{ formatSongDuration(row.dt) }</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -369,17 +363,19 @@ class PlayList extends React.Component{
                 </div>
             )
         }
-
+        const { params } = this.props.match;
+        const { id } = params;
         return (
             <div style={{marginLeft:"50px",marginTop:"20px"}}>
                 {
-                    this.state.comment.map( (item,index) => {
+                    this.state.comment.map((item) => {
                         return <Comment
                             data={item}
-                            key={index}
-                            style={{marginLeft:"40px",marginTop:"10px"}}
-                            type={this.props.match.params === "songlist" ? 2 : 3}
-                            id={this.props.match.params.id}/>
+                            key={item.id}
+                            style={{ marginLeft:"40px",marginTop:"10px" }}
+                            type={params === "songlist" ? 2 : 3}
+                            id={id}
+                        />
                     })
                 }
             </div>
@@ -396,22 +392,22 @@ class PlayList extends React.Component{
       return(
           <div style={{display:"flex",alignItems:"center",width:"1000px",flexWrap:"wrap",marginLeft:"50px",marginTop:"20px"}}>
               {
-                  this.state.collector.map( (item,index) => {
+                  this.state.collector.map( (item) => {
                   return(
-                      <div style={{width:"100px",height:"100px",margin:"20px 20px 20px 20px"}} key={index}>
+                      <div style={{ width:"100px",height:"100px",margin:"20px 20px" }} key={item.userId}>
                           <div>
-                              <LazyLoad height={60}>
+                              <LazyLoad height={ 60 }>
                                   <img
-                                      alt="avatar"
-                                      src={item.avatarUrl+"?param=60y60"}
-                                      style={{borderRadius:"50%",cursor:'pointer'}}
+                                      alt=""
+                                      src={createPicURL(item.avatarUrl,60,60)}
+                                      style={{ borderRadius:"50%",cursor:'pointer' }}
                                       onClick={() => {
                                           changeRouteToUser(this.props,item.userId)
                                       }}
                                   />
                               </LazyLoad>
                           </div>
-                          <p style={{fontSize:"12px"}}>{item.nickname}</p>
+                          <p style={{ fontSize:"12px" }}>{ item.nickname }</p>
                       </div>
                   )
               })
@@ -455,48 +451,45 @@ class PlayList extends React.Component{
             des = this.state.detailForPlayList.description;
         return des;
     }
-
-
-    render() {
-        const tags = () => {
-            if(this.state.detailForPlayList.tags.length === 0){
-                return "暂无标签"
-            }
-            else return (
+    tags() {
+        if(this.state.detailForPlayList.tags.length === 0){
+            return "暂无标签";
+        }
+        else {
+            return (
                 this.state.detailForPlayList.tags.map(function (item,index,array) {
-                    if(index === array.length -1)
-                        return item;
-                    return item+"/";
+                    return index === array.length - 1 ? item : item+"/";
                 })
             )
         }
-
-        const info = () => {
-            if(this.props.match.params.type === "songlist") {
-                let describe;
-                if(this.state.loading_top){
-                    describe = null
-                }
-                else {
-                    describe = (<p style={{fontSize:"14px",marginTop:"8px"}}>简介:{this.des()}</p>)
-                }
-
-                return(
-                    <>
-                    <p style={{fontSize:"14px"}}>标签:{tags()}</p>
-                        {describe}
-                    </>
-                )
+    }
+    info() {
+        if(this.props.match.params.type === "songlist") {
+            let describe;
+            if(this.state.loading_top){
+                describe = null
             }
             else {
-                return (
-                    <>
+                describe = (<p style={{fontSize:"14px",marginTop:"8px"}}>简介:{this.des()}</p>)
+            }
+
+            return(
+                <>
+                    <p style={{fontSize:"14px"}}>标签:{this.tags()}</p>
+                    {describe}
+                </>
+            )
+        }
+        else {
+            return (
+                <>
                     <p>歌手: {this.state.detailForAlbum.artist.name}</p>
                     <p>时间: {moment(this.state.detailForAlbum.publishTime).format("YYYY-MM-DD")}</p>
-                    </>
-                )
-            }
+                </>
+            )
         }
+    }
+    image() {
         let img;
         let name;
         if(this.props.match.params.type === "songlist") {
@@ -525,7 +518,11 @@ class PlayList extends React.Component{
                 {this.state.detailForAlbum.name}
             </span>;
         }
+        return {name,img};
+    }
 
+    render() {
+        const {name,img} = this.image();
         return(
             <div className={style.main}>
                 {
@@ -538,13 +535,14 @@ class PlayList extends React.Component{
                         />
                         :
                         <div className={style.top}>
-                        <div className={style.image}>
-                            <LazyLoad height={225} once={true}>
-                                {img}
-                            </LazyLoad>
-                        </div>
+                        <LazyLoad once={true} height={225}>
+                            <div className={style.image}>
+                                    {img}
+                            </div>
+                        </LazyLoad>
+
                         <div className={style.info}>
-                            <div style={{height:"60px"}}>
+                            <div style={{ height:"60px" }}>
                                 <div style={{float:"left"}}>
                                     <div style={{
                                         width:"45px",
@@ -624,7 +622,7 @@ class PlayList extends React.Component{
 
                             <div style={{marginTop:"20px"}}>
                                 {
-                                    info()
+                                    this.info()
                                 }
                             </div>
                         </div>

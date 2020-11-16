@@ -271,7 +271,6 @@ class MyFooter extends React.Component{
                                 <span style={{fontSize: "14px",maxHeight:"40px",display:"block",overflow:"hidden",wordBreak:"break-all"}}>{songState.name}</span>
                                 <span style={{fontSize:"12px",color:"rgb(186,186,186)",height:"24px"}}>{songState.author}</span>
                             </div>
-
                         </div>
                         <div className={style.middle}>
                             <MyButton  onClick={this.prevSong.bind(this)}>

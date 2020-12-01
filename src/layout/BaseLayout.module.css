@@ -1,75 +1,69 @@
 .main {
-    position: relative;
+  position: relative;
 }
 .content {
-    display: flex;
-    width: 100%;
-    height: calc(100vh - 128px);
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 128px);
 }
 
 .top {
-    width: 100%;
-    height: 64px;
-    position: relative;
-    z-index: 0;
-    -webkit-app-region: drag
+  width: 100%;
+  height: 64px;
+  position: relative;
+  z-index: 0;
+  -webkit-app-region: drag;
 }
 
 .left {
-    flex-basis: 18vw;
-    flex-grow: 0;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+  flex-basis: 18vw;
+  flex-grow: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
 .right {
-    flex-basis: 92vw;
-    flex-grow: 0;
-    overflow-y: scroll;
-    overflow-x: hidden;
+  flex-basis: 92vw;
+  flex-grow: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .bottom {
-    background-color: rgb(246, 246, 248);
-    height: 64px;
-    width: 100%;
+  background-color: rgb(246, 246, 248);
+  height: 64px;
+  width: 100%;
 }
 
 .right::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 .right::-webkit-scrollbar-track {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .right::-webkit-scrollbar-thumb {
-    background-color: rgb(225, 225, 226);
+  background-color: rgb(225, 225, 226);
 }
 
 .right::-webkit-scrollbar-thumb:active {
-    background-color: rgb(225, 225, 226);
+  background-color: rgb(225, 225, 226);
 }
 
 .left::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 .left::-webkit-scrollbar-track {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .left::-webkit-scrollbar-thumb {
-    background-color: rgb(225, 225, 226);
+  background-color: rgb(225, 225, 226);
 }
 
 .left::-webkit-scrollbar-thumb:active {
-    background-color: rgb(225, 225, 226);
+  background-color: rgb(225, 225, 226);
 }
-
-
-
-
-
-

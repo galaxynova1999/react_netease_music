@@ -1,51 +1,51 @@
-.music{
-    width:35vw;
-    height:70px;
-    padding-top: 10px;
-    margin-left: 40px;
-    border-bottom: 1px solid rgb(245,245,245);
-    border-top: 1px solid rgb(245,245,245);
+.music {
+  width: 35vw;
+  height: 70px;
+  padding-top: 10px;
+  margin-left: 40px;
+  border-bottom: 1px solid rgb(245, 245, 245);
+  border-top: 1px solid rgb(245, 245, 245);
 }
-.music:hover{
-    background-color: rgb(245,245,245);
-    cursor: pointer
+.music:hover {
+  background-color: rgb(245, 245, 245);
+  cursor: pointer;
 }
-.musicdiv{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    padding-left: 3vw;
+.musicdiv {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-left: 3vw;
 }
 
-.mv{
-    position: relative;
-    margin-left: 30px;
-    flex-basis: 18vw;
-    height:180px
+.mv {
+  position: relative;
+  margin-left: 30px;
+  flex-basis: 18vw;
+  height: 180px;
 }
-.mvdiv{
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    width:100%;
-    padding-left: 2vw;
+.mvdiv {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-left: 2vw;
 }
-.private{
-    width:100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    padding-left: 3vw;
+.private {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-left: 3vw;
 }
 
 .playlist {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    padding-left: 3vw;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-left: 3vw;
 }
 .banner {
-    flex-basis: 18vw;
-    margin-left: 10vw;
+  flex-basis: 18vw;
+  margin-left: 10vw;
 }

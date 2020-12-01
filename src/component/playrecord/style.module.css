@@ -1,20 +1,25 @@
-.main{
-    width: 35vw;
-    height: 25vw;
-    overflow-y: scroll;
-    overflow-x: hidden;
+.main {
+  width: 35vw;
+  height: 25vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
-.no_list{
-    text-align: center;
-    height: 20vw;
-    line-height: 20vw;
+.no_list {
+  text-align: center;
+  height: 20vw;
+  line-height: 20vw;
 }
 
-
-
-.main::-webkit-scrollbar{width:5px;}
-.main::-webkit-scrollbar-track{background-color:transparent;}
-.main::-webkit-scrollbar-thumb{background-color:rgb(225,225,226);}
-.main::-webkit-scrollbar-thumb:active {background-color:rgb(225,225,226);}
-
+.main::-webkit-scrollbar {
+  width: 5px;
+}
+.main::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.main::-webkit-scrollbar-thumb {
+  background-color: rgb(225, 225, 226);
+}
+.main::-webkit-scrollbar-thumb:active {
+  background-color: rgb(225, 225, 226);
+}

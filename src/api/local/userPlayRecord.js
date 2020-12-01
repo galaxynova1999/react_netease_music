@@ -1,5 +1,5 @@
 function setUserPlayList(weekdata) {
-  localStorage.setItem("userplayrecord",JSON.stringify(weekdata));
+  localStorage.setItem("userplayrecord", JSON.stringify(weekdata));
 }
 
 function getUserPlayList() {
@@ -7,12 +7,7 @@ function getUserPlayList() {
 }
 
 function clearUserPlayList() {
-    localStorage.setItem("userplayrecord",null);
+  localStorage.setItem("userplayrecord", null);
 }
 
-
-export {
-    getUserPlayList,
-    setUserPlayList,
-    clearUserPlayList
-}
+export { getUserPlayList, setUserPlayList, clearUserPlayList };

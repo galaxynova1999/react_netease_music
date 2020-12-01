@@ -1,49 +1,44 @@
-
-.left{
-    display: flex;
-    align-items: center;
-    margin-left: 20px;
-    flex-basis: 300px;
-    flex-shrink: 0;
+.left {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  flex-basis: 300px;
+  flex-shrink: 0;
 }
-.left div{
-    margin-left: 15px;
+.left div {
+  margin-left: 15px;
 }
-.left img{
-    cursor: pointer
-}
-
-
-.middle{
-    display: flex;
-    justify-content:center ;
-    flex-basis: 300px;
-    flex-grow: 0;
-    flex-shrink: 1;
-}
-.right{
-     flex-basis: 300px;
-     display: flex;
-     flex-shrink: 1;
-     align-items: center;
-}
-.progress{
-     display: flex;
-     flex-basis: 400px;
-     align-items: center;
-     flex-shrink: 1;
-}
-.main{
-     display: flex;
-     align-items: center;
-     position: fixed;
-     bottom: 0;
-     height: 64px;
-     width: 100%;
-     background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
-     z-index: 1;
-     justify-content: flex-start;
+.left img {
+  cursor: pointer;
 }
 
-
-
+.middle {
+  display: flex;
+  justify-content: center;
+  flex-basis: 300px;
+  flex-grow: 0;
+  flex-shrink: 1;
+}
+.right {
+  flex-basis: 300px;
+  display: flex;
+  flex-shrink: 1;
+  align-items: center;
+}
+.progress {
+  display: flex;
+  flex-basis: 400px;
+  align-items: center;
+  flex-shrink: 1;
+}
+.main {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  height: 64px;
+  width: 100%;
+  background-image: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+  z-index: 1;
+  justify-content: flex-start;
+}

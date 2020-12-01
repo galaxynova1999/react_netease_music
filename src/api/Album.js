@@ -1,18 +1,11 @@
-import {get,post} from "../util/axios";
+import { get, post } from "../util/axios";
 
 function getAlbumDetail(id) {
-   return get("/album",{id});
+  return get("/album", { id });
 }
 
 function getAlbumInfo(id) {
-  return get("/album/detail/dynamic",{id});
+  return get("/album/detail/dynamic", { id });
 }
 
-
-export {
-    getAlbumDetail,
-    getAlbumInfo
-}
-
-
-
+export { getAlbumDetail, getAlbumInfo };

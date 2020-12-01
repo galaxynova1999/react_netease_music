@@ -1,31 +1,29 @@
-.image{
-
+.image {
 }
-.main{
-    width: 100%;
+.main {
+  width: 100%;
 }
-.top{
-    display: flex;
-    align-items: center;
-    width: 70vw;
-    padding: 20px 40px 20px 40px;
-}
-
-.info{
-    width: 900px;
-    height: 225px;
-    margin-left: 40px;
-}
-.songList{
-    margin-top: 0;
-    margin-left: 40px;
-}
-.album:hover{
-    text-decoration: underline;
-    cursor: pointer;
-}
-.singer:hover{
-    text-decoration: underline;
-    cursor: pointer;
+.top {
+  display: flex;
+  align-items: center;
+  width: 70vw;
+  padding: 20px 40px 20px 40px;
 }
 
+.info {
+  width: 900px;
+  height: 225px;
+  margin-left: 40px;
+}
+.songList {
+  margin-top: 0;
+  margin-left: 40px;
+}
+.album:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+.singer:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

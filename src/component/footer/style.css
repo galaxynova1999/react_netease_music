@@ -1,21 +1,21 @@
 .musicDetail-enter {
-    top:100%;
+  top: 100%;
 }
 .musicDetail-enter-active {
-    top:0;
-    transition-property: top;
-    transition-timing-function: ease-in;
-    transition-duration: 1s;
+  top: 0;
+  transition-property: top;
+  transition-timing-function: ease-in;
+  transition-duration: 1s;
 }
 .musicDetail-enter-done {
-    top: 0;
+  top: 0;
 }
 .musicDetail-exit {
-    top:0;
-    transition-property: top;
-    transition-duration: 1s;
-    transition-timing-function: ease-out;
+  top: 0;
+  transition-property: top;
+  transition-duration: 1s;
+  transition-timing-function: ease-out;
 }
 .musicDetail-exit-active {
-    top:100%;
+  top: 100%;
 }

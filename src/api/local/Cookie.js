@@ -1,13 +1,9 @@
 function setCookie(cookie) {
-  localStorage.setItem("cookie",cookie);
+  localStorage.setItem("cookie", cookie);
 }
-
 
 function clearCookie() {
-  localStorage.setItem("cookie",null);
+  localStorage.setItem("cookie", null);
 }
 
-export {
-    setCookie,
-    clearCookie
-}
+export { setCookie, clearCookie };

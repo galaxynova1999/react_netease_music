@@ -1,40 +1,40 @@
-import {get,post} from "../util/axios";
+import { get, post } from "../util/axios";
 
 function getSingerInfo(id) {
-   return get("/artists",{
-       id
-   });
+  return get("/artists", {
+    id,
+  });
 }
 
 function getSingerMV(id) {
-  return get("/artist/mv",{
-      id
+  return get("/artist/mv", {
+    id,
   });
 }
 
 function getSingerAlbum(id) {
- return get("/artist/album",{
-     id,
-     limit:8
- });
+  return get("/artist/album", {
+    id,
+    limit: 8,
+  });
 }
 
 function getSingerDes(id) {
- return get("/artist/desc",{
-     id
- });
+  return get("/artist/desc", {
+    id,
+  });
 }
 
 function getSimiSinger(id) {
- return get("/simi/artist",{
-     id
- });
+  return get("/simi/artist", {
+    id,
+  });
 }
 
 export {
-    getSimiSinger,
-    getSingerAlbum,
-    getSingerDes,
-    getSingerInfo,
-    getSingerMV
-}
+  getSimiSinger,
+  getSingerAlbum,
+  getSingerDes,
+  getSingerInfo,
+  getSingerMV,
+};

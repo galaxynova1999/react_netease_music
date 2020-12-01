@@ -1,9 +1,5 @@
-const WAITING = 'WAITING';
-const PAUSE = 'PAUSE';
-const PLAYING = 'PLAYING';
+const WAITING = "WAITING";
+const PAUSE = "PAUSE";
+const PLAYING = "PLAYING";
 
-export {
-    WAITING,
-    PLAYING,
-    PAUSE
-}
+export { WAITING, PLAYING, PAUSE };

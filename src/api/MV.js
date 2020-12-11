@@ -1,10 +1,21 @@
-import { get, post } from "../util/axios";
+import { get } from "../util/axios";
 
+/**
+ * 获取MV详情
+ * @param {string | number} id
+ * @returns {Promise}
+ */
 function getMVDetails(id) {
   return get("/mv/detail", {
     mvid: id,
   });
 }
+
+/**
+ * 获取MV的播放地址
+ * @param {string | number} id
+ * @returns {Promise}
+ */
 function getMVVideoRealSrc(id) {
   return get("/mv/url", {
     id,

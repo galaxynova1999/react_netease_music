@@ -5,6 +5,12 @@ import LoginState from "../mobx/loginState";
 import userPlayList from "../mobx/userPlayListState";
 import { clearUserPlayList } from "./local/userPlayRecord";
 
+/**
+ * 通过手机号登录
+ * @param {string} phone - 手机号
+ * @param {string} pwd - 密码
+ * @returns {Promise}
+ */
 function LoginByPhone(phone, pwd) {
   return post("/login/cellphone", {
     phone: phone,

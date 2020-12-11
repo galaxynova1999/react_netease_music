@@ -2,9 +2,9 @@ import { post } from "../util/axios";
 
 /**
  * 点赞资源
- * @param id
- * @param type 1-mv 4-电台 5-视频 6-动态
- * @param t 1-点赞 0-取消
+ * @param {string} id
+ * @param {number | string} type 1-mv 4-电台 5-视频 6-动态
+ * @param {number | string} t 1-点赞 0-取消
  * @returns {Promise}
  */
 function likeResources(id, type, t) {

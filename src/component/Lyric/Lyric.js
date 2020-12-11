@@ -99,8 +99,8 @@ function formatLyric(lyrics, tlyrics) {
 }
 function Lyric(props) {
   const [line, setLine] = useState(0);
-  const currentRequestAnimationFrame = useRef();
-  const currentLineIndex = useRef();
+  const currentRequestAnimationFrame = useRef(0);
+  const currentLineIndex = useRef(0);
   const formattedLyric = formatLyric(props.lyric, props.tlyric);
   const lineHeight = props.tlyric ? 60 : 45;
   function LyricScroll() {

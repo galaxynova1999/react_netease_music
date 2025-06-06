@@ -101,8 +101,26 @@ function Lyric(props) {
   const [line, setLine] = useState(0);
   const currentRequestAnimationFrame = useRef(0);
   const currentLineIndex = useRef(0);
+  const scrollAnimationRef = useRef(0);
   const formattedLyric = formatLyric(props.lyric, props.tlyric);
   const lineHeight = props.tlyric ? 60 : 45;
+  function smoothScroll(div, target) {
+    if (!div) return;
+    const start = div.scrollTop;
+    const distance = target - start;
+    const duration = 300;
+    let startTime = null;
+    cancelAnimationFrame(scrollAnimationRef.current);
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      div.scrollTop = start + distance * progress;
+      if (progress < 1) {
+        scrollAnimationRef.current = requestAnimationFrame(step);
+      }
+    }
+    scrollAnimationRef.current = requestAnimationFrame(step);
+  }
   function LyricScroll() {
     if (songState.playStatus !== PLAYING) {
       window.cancelAnimationFrame(currentRequestAnimationFrame.current);
@@ -124,20 +142,9 @@ function Lyric(props) {
     if (lineIndex > -1 && lineIndex !== currentLineIndex.current) {
       const div = document.getElementById("lyricarea");
       if (div && div.scrollTop + div.clientHeight <= div.scrollHeight) {
-        console.log(
-          lineHeight,
-          lineIndex,
-          div.clientHeight,
-          div.scrollHeight,
-          div.scrollTop
-        );
         const scrollHeight = lineHeight * lineIndex - div.clientHeight * 0.6;
-        console.log(scrollHeight);
         if (scrollHeight > 0) {
-          div.scrollTo({
-            top: scrollHeight,
-            behavior: "smooth",
-          });
+          smoothScroll(div, scrollHeight);
         }
       }
       setLine(lineIndex);
@@ -156,6 +163,7 @@ function Lyric(props) {
 
     return () => {
       window.cancelAnimationFrame(currentRequestAnimationFrame.current);
+      window.cancelAnimationFrame(scrollAnimationRef.current);
     };
     // eslint-disable-next-line
   }, [formattedLyric, songState.playStatus]);
